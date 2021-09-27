@@ -123,3 +123,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4135c3a5d0d984dc69bafc9dfa29dd3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteEmpty: {fileID: 21300000, guid: aaf837e57a9314225a57313bd7c58305, type: 3}
+  spriteCrossed: {fileID: 21300000, guid: 8e2b06087b0e940a7ab9a569060ff987, type: 3}

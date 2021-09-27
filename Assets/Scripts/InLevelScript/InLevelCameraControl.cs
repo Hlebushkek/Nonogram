@@ -18,7 +18,6 @@ public class InLevelCameraControl : MonoBehaviour
         SpriteRenderer backR = background.GetComponent<SpriteRenderer>();
         backLength = backR.bounds.size.x;
         backHigh = backR.bounds.size.y;
-        Debug.Log(backLength + " " + backHigh);
     }
     private void Update()
     {
@@ -55,22 +54,22 @@ public class InLevelCameraControl : MonoBehaviour
         {
             _followObj.position += startPos - Camera.main.ScreenToWorldPoint(Input.mousePosition);
             startPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (_followObj.position.y > background.transform.position.y + backHigh / 2.0f)
+            if (_followObj.position.y > background.transform.position.y + backHigh / 6.0f)
             {
-                _followObj.position = new Vector3(_followObj.position.x, background.transform.position.y + backHigh / 2.0f, _followObj.position.z);
+                _followObj.position = new Vector3(_followObj.position.x, background.transform.position.y + backHigh / 6.0f, _followObj.position.z);
             }
-            else if (_followObj.position.y < background.transform.position.y - backHigh / 2.0f)
+            else if (_followObj.position.y < background.transform.position.y - backHigh / 6.0f)
             {
-                _followObj.position = new Vector3(_followObj.position.x, background.transform.position.y - backHigh / 2.0f, _followObj.position.z);
+                _followObj.position = new Vector3(_followObj.position.x, background.transform.position.y - backHigh / 6.0f, _followObj.position.z);
             }
             
-            if (_followObj.position.x > background.transform.position.x + backLength / 2.0f)
+            if (_followObj.position.x > background.transform.position.x + backLength / 6.0f)
             {
-                _followObj.position = new Vector3(background.transform.position.x + backLength / 2.0f, _followObj.position.y, _followObj.position.z);
+                _followObj.position = new Vector3(background.transform.position.x + backLength / 6.0f, _followObj.position.y, _followObj.position.z);
             }
-            else if (_followObj.position.x < background.transform.position.x - backLength / 2.0f)
+            else if (_followObj.position.x < background.transform.position.x - backLength / 6.0f)
             {
-                _followObj.position = new Vector3(background.transform.position.x - backLength / 2.0f, _followObj.position.y, _followObj.position.z);
+                _followObj.position = new Vector3(background.transform.position.x - backLength / 6.0f, _followObj.position.y, _followObj.position.z);
             }
         }
     }

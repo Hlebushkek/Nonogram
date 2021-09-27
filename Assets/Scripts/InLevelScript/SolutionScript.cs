@@ -34,23 +34,18 @@ public class SolutionScript : MonoBehaviour
     }
     private void Check(int x, int y)
     {
-        bool correct = true;
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
             {
-                if (decision[i, j] != solution[i, j] && decision[i, j] != CellState.Crossed)
+                if (decision[i, j] == solution[i, j] || (decision[i, j] == CellState.Crossed && solution[i, j] == CellState.Empty))
                 {
-                    //Debug.Log("Error in " + i + " " + j);
-                    correct = false;
-                }
+                    continue;
+                } else return;
             }
         }
-        if (correct)
-        {
-            Debug.Log("WIN");
-            this.gameObject.GetComponent<LevelScript>().SetColorToCell();
-        }
+        Debug.Log("WIN");
+        this.gameObject.GetComponent<LevelScript>().SetColorToCell();
     }
     public void PrintCheck()
     {

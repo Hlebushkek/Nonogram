@@ -16,16 +16,6 @@ public class HelperScript : MonoBehaviour
         solution = ss;
         value = v;
         direction = d;
-
-
-        int length;
-        if (direction == false) length = level.cellObjArray.GetLength(0);
-        else length = level.cellObjArray.GetLength(1);
-
-        for (int i = 0; i < length; i++)
-        {
-            undefinedCells.Add(i);
-        }
     }
     public virtual void GetHelp(){}
 }

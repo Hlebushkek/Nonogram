@@ -16,9 +16,7 @@ public static class ImageAnalyze
                 imgArray[x, y] = new CellStruct(c, s);
             }
         }
-        
-        PrintImgArray(imgArray);
-
+        //PrintImgArray(imgArray);
         return imgArray;
     }
     private static void PrintImgArray(CellStruct[,] imgArray)

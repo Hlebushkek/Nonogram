@@ -11,7 +11,7 @@ public class LevelScript : MonoBehaviour
     private Texture2D img;
     private SolutionScript solution;
     private CellStruct[,] imgArray;
-    public Transform[,] cellObjArray {get; private set;}
+    public CellScript[,] cellObjArray {get; private set;}
     private List<List<int>> widthValues = new List<List<int>>();
     private List<List<int>> heightValues = new List<List<int>>();
     private int width, height;
@@ -25,7 +25,7 @@ public class LevelScript : MonoBehaviour
         imgArray = ImageAnalyze.CreateCellStructArray(img);
         width = imgArray.GetLength(0);
         height = imgArray.GetLength(1);
-        cellObjArray = new Transform[width, height];
+        cellObjArray = new CellScript[width, height];
         solution = this.GetComponent<SolutionScript>();
 
         CreateGridRepresent();
@@ -42,8 +42,8 @@ public class LevelScript : MonoBehaviour
             for (int j = 0; j < height; j++)
             {
                 var obj = Instantiate(Tile, new Vector3(startX + i, startY + j, 0), Quaternion.identity, this.transform);
-                obj.GetComponent<CellScript>().SetCoord(i, j);
-                cellObjArray[i, j] = obj.transform;
+                cellObjArray[i, j] = obj.GetComponent<CellScript>();
+                cellObjArray[i, j].SetCoord(i, j);
             }
         }
     }
@@ -98,7 +98,7 @@ public class LevelScript : MonoBehaviour
             }
             heightValues.Add(values);
         }
-        PrintHeightNum();
+        //PrintHeightNum();
     }
     private void InstantiateNumbers()
     {
@@ -163,7 +163,10 @@ public class LevelScript : MonoBehaviour
         {
             for (int j = 0; j < height; j++)
             {
-                //cellObjArray[i, j].GetChild(0).GetComponent<SpriteRenderer>().color = imgArray[i, j].color;
+                if (solution.solution[i, j] == CellState.Empty)
+                {
+                    cellObjArray[i, j].ApplyCellStateFromHelper(CellState.Empty);
+                }
                 cellObjArray[i, j].GetComponent<SpriteRenderer>().color = imgArray[i, j].color;
             }
         }

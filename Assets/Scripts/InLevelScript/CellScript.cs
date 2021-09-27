@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CellScript : MonoBehaviour
 {
+    [SerializeField] private Sprite spriteEmpty, spriteCrossed;
     private int x = 0, y = 0;
     private CellState state = CellState.Empty;
     private bool CanBeChanged = true;
@@ -50,7 +51,6 @@ public class CellScript : MonoBehaviour
     }
     public void ApplyCellStateFromHelper(CellState s)
     {
-        if (s == CellState.Empty) s = CellState.Crossed;
         state = s;
         CanBeChanged = false;
 
@@ -62,13 +62,14 @@ public class CellScript : MonoBehaviour
         switch (state)
         {
         case CellState.Empty :
+            renderer.sprite = spriteEmpty;
             renderer.color = Color.white;
             break;
         case CellState.Filled :
             renderer.color = Color.gray;
             break;
         case CellState.Crossed :
-            renderer.color = Color.blue;
+            renderer.sprite = spriteCrossed;
             break;
         default :
             break;

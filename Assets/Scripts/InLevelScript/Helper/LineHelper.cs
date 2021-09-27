@@ -14,16 +14,21 @@ public class LineHelper : HelperScript
         for (int i = 0; i < n; i++)
         {
             CellScript cell;
+            CellState state;
             if (direction == false)
             {
-                cell = level.cellObjArray[i, value].GetComponent<CellScript>();
-                cell.ApplyCellStateFromHelper(solution.solution[i, value]);
+                cell = level.cellObjArray[i, value];
+                state = solution.solution[i, value];
+                if (state == CellState.Empty) state = CellState.Crossed;
+                cell.ApplyCellStateFromHelper(state);
                 solution.ApplyCorrectValueForCell(i, value);
             }
             else
             {
-                cell = level.cellObjArray[value, i].GetComponent<CellScript>();
-                cell.ApplyCellStateFromHelper(solution.solution[value, i]);
+                cell = level.cellObjArray[value, i];
+                state = solution.solution[value, i];
+                if (state == CellState.Empty) state = CellState.Crossed;
+                cell.ApplyCellStateFromHelper(state);
                 solution.ApplyCorrectValueForCell(value, i);
             }
         }
