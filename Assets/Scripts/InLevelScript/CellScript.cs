@@ -66,10 +66,12 @@ public class CellScript : MonoBehaviour
             renderer.color = Color.white;
             break;
         case CellState.Filled :
+            renderer.sprite = spriteEmpty;
             renderer.color = Color.gray;
             break;
         case CellState.Crossed :
             renderer.sprite = spriteCrossed;
+            renderer.color = Color.white;
             break;
         default :
             break;

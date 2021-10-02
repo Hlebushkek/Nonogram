@@ -28,3 +28,8 @@ public enum CellState
     Filled,
     Crossed,
 }
+public enum Direction
+{
+    Vertical,
+    Horizontal
+}

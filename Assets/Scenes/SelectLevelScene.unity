@@ -521,7 +521,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7772567, y: 1}
+    m_SensorSize: {x: 1.7793428, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -697,7 +697,7 @@ PrefabInstance:
     - target: {fileID: 6339145740332368226, guid: b55e9274da3ab4a5888c92411b04616e, type: 3}
       propertyPath: TextureInLevel
       value: 
-      objectReference: {fileID: 2800000, guid: 4f67cca820cd44611b13eca3ef14db9c, type: 3}
+      objectReference: {fileID: 2800000, guid: 025762eb6f04f41a990056c04a830de8, type: 3}
     - target: {fileID: 6339145740332368228, guid: b55e9274da3ab4a5888c92411b04616e, type: 3}
       propertyPath: m_RootOrder
       value: 9

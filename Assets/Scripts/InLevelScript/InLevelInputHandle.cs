@@ -8,6 +8,7 @@ public class InLevelInputHandle : MonoBehaviour
     private SolutionScript solution;
     private bool isSwiping = false, canClick = true;
     private CellState swipingMode;
+    private NumBlockScript selectedNumBlock = null;
     private void Start()
     {
         solution = FindObjectOfType<SolutionScript>();
@@ -20,6 +21,12 @@ public class InLevelInputHandle : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0))
         {
+            if (selectedNumBlock != null)
+            {
+                CastHelperRay();
+                selectedNumBlock.HideButton();
+                selectedNumBlock = null;
+            }
             CastRay();
             isSwiping = false;
             canClick = true;
@@ -35,7 +42,6 @@ public class InLevelInputHandle : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
         CellScript cell;
         NumBlockScript numBlock;
-        HelperScript helper;
         if (hit && hit.transform.TryGetComponent<CellScript>(out cell))
         {
             CellInfo cellInfo = cell.GetCell();
@@ -49,11 +55,18 @@ public class InLevelInputHandle : MonoBehaviour
                 solution.TakeChanges(cell.ApplyCellState(InputMode));
             }
         }
-        else if (hit && hit.transform.TryGetComponent<NumBlockScript>(out numBlock))
+        else if (hit && hit.transform.TryGetComponent<NumBlockScript>(out numBlock) && canClick)
         {
+            numBlock.ShowButton();
+            selectedNumBlock = numBlock;
             canClick = false;
         }
-        else if (hit && hit.transform.TryGetComponent<HelperScript>(out helper) && canClick)
+    }
+    private void CastHelperRay()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        HelperScript helper;
+        if (hit && hit.transform.TryGetComponent<HelperScript>(out helper))
         {
             helper.GetHelp();
             canClick = false;

@@ -24,5 +24,20 @@ public class NumBlockScript : MonoBehaviour
         {
             transform.GetChild(i).GetComponent<HelperScript>().SetInfo(level, solution, value, direction);
         }
+        HideButton();
+    }
+    public void HideButton()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
+    }
+    public void ShowButton()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(true);
+        }
     }
 }

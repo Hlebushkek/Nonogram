@@ -11,6 +11,7 @@ public static class ImageAnalyze
             for (int x = 0; x < img.width; x++)
             {
                 Color c = img.GetPixel(x, y);
+                //Debug.Log(x + " " + y + " " + c);
                 CellState s = CellState.Empty;
                 if (c != Color.white) s = CellState.Filled;
                 imgArray[x, y] = new CellStruct(c, s);

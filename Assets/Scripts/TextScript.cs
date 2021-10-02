@@ -9,6 +9,7 @@ public static class TextScript
     private static Dictionary<char, Sprite> charToSprite = new Dictionary<char, Sprite>();
     public static void CreateDictionary()
     {
+        charToSprite.Clear();
         letterSprite = Resources.LoadAll<Sprite>(_fontname);
 
         for (int i = 0; i < letterSprite.Length; i++)
