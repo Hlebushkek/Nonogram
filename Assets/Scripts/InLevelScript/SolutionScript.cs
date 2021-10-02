@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class SolutionScript : MonoBehaviour
 {
-    public CellState[,] solution {get; private set;}
+    private CellState[,] solution;
     private CellState[,] decision;
-    int width = 0, height = 0;
-    public void GenerateSolutionArrays(CellStruct[,] ar, int width, int height)
+    private int width = 0, height = 0;
+    public void GenerateSolutionArrays(CellStruct[,] ar, int w, int h)
     {
-        this.width = width;
-        this.height = height;
+        width = w;
+        height = h;
         solution = new CellState[width, height];
         decision = new CellState[width, height];
         for (int i = 0; i < width; i++)
@@ -21,6 +21,14 @@ public class SolutionScript : MonoBehaviour
                 decision[i, j] = CellState.Empty;
             }
         }
+    }
+    public CellState GetSolutionForCell(int x, int y)
+    {
+        return solution[x, y];
+    }
+    public CellState GetDecisionForCell(int x, int y)
+    {
+        return decision[x, y];
     }
     public void TakeChanges(CellInfo cellinfo)
     {

@@ -5,24 +5,83 @@ using UnityEngine;
 public class NumBlockScript : MonoBehaviour
 {
     private GameObject FullLineHelper, RandomOnLineHelper;
-    private LevelScript level;
-    private SolutionScript solution;
-    private int value = 0;
-    private bool direction; //false - width, true - height
-    public void SetInfo(LevelScript l, SolutionScript ss,int v, bool d)
+    private List<int> values;
+    public void CalculateNums(LevelScript lev, SolutionScript s, Direction direction, int value, int length)
     {
-        level = l;
-        solution = ss;
-        value = v;
-        direction = d;
-
-        SetInfoToHelperButton();
+        ReadLine(s, direction, value, length);
+        CreateBlockContent(direction);
+        SetInfoToHelperButton(lev, s, direction, value, length);
     }
-    private void SetInfoToHelperButton()
+    private void ReadLine(SolutionScript s, Direction d, int v, int length)
     {
-        for (int i = 0; i < transform.childCount; i++)
+        values = new List<int>();
+        CellState prevState = CellState.Empty;
+
+        if (d == Direction.Horizontal)
         {
-            transform.GetChild(i).GetComponent<HelperScript>().SetInfo(level, solution, value, direction);
+            for (int i = length - 1; i >= 0; i--)
+            {
+                CellState curState = s.GetSolutionForCell(i, v);
+                prevState = ReadCell(prevState, curState);
+            }
+        }
+        else if (d == Direction.Vertical)
+        {
+            for (int i = 0; i < length; i++)
+            {
+                CellState curState = s.GetSolutionForCell(v, i);
+                prevState = ReadCell(prevState, curState);
+            }
+        }
+    }
+    private CellState ReadCell(CellState prevState, CellState curState)
+    {
+        if (curState == CellState.Filled && prevState == CellState.Empty)
+        {
+            values.Add(1);
+            prevState = CellState.Filled;
+        }
+        else if (curState == CellState.Filled && prevState == CellState.Filled)
+        {
+            values[values.Count - 1]++;
+        }
+        else if (curState == CellState.Empty)
+        {
+            prevState = CellState.Empty;
+        }
+        return prevState;
+    }
+    private void CreateBlockContent(Direction d)
+    {
+        for (int i = 0; i < values.Count; i++)
+        {
+            Transform letterObj = CreateLetter(values[i]);
+            letterObj.SetParent(transform);
+
+            if (d == Direction.Vertical)
+            {
+                letterObj.localPosition = new Vector3(0, -0.6f + i * 0.5f, -1);
+            } else
+            {
+                letterObj.localPosition = new Vector3(0.6f - i * 0.4f, 0, -1);
+            }
+        }
+    }
+    private Transform CreateLetter(int v)
+    {
+        var letterObj = new GameObject();
+        string num = v.ToString();
+        SpriteRenderer letterRend = letterObj.AddComponent<SpriteRenderer>();
+        letterRend.sprite = TextScript.GetLetterObj(num[0]);
+        letterRend.color = Color.black;
+
+        return letterObj.transform;
+    }
+    private void SetInfoToHelperButton(LevelScript lev, SolutionScript s, Direction d, int v, int l)
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            transform.GetChild(i).GetComponent<HelperScript>().SetInfo(lev, s, d, v, l);
         }
         HideButton();
     }

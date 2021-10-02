@@ -8,25 +8,22 @@ public class LineHelper : HelperScript
     {
         if (FullHelpWasApplyed) return;
 
-        int n = 0;
-        if (direction == false) n = level.cellObjArray.GetLength(0);
-        else n = level.cellObjArray.GetLength(1);
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < length; i++)
         {
             CellScript cell;
             CellState state;
-            if (direction == false)
+            if (direction == Direction.Horizontal)
             {
-                cell = level.cellObjArray[i, value];
-                state = solution.solution[i, value];
+                cell = level.GetCell(i, value);
+                state = solution.GetSolutionForCell(i, value);
                 if (state == CellState.Empty) state = CellState.Crossed;
                 cell.ApplyCellStateFromHelper(state);
                 solution.ApplyCorrectValueForCell(i, value);
             }
             else
             {
-                cell = level.cellObjArray[value, i];
-                state = solution.solution[value, i];
+                cell = level.GetCell(value, i);
+                state = solution.GetSolutionForCell(value, i);
                 if (state == CellState.Empty) state = CellState.Crossed;
                 cell.ApplyCellStateFromHelper(state);
                 solution.ApplyCorrectValueForCell(value, i);
