@@ -13,7 +13,7 @@ public static class ImageAnalyze
                 Color c = img.GetPixel(x, y);
                 //Debug.Log(x + " " + y + " " + c);
                 CellState s = CellState.Empty;
-                if (c != Color.white) s = CellState.Filled;
+                if (c != Color.white && c.a != 0) s = CellState.Filled;
                 imgArray[x, y] = new CellStruct(c, s);
             }
         }

@@ -69,13 +69,30 @@ public class NumBlockScript : MonoBehaviour
     }
     private Transform CreateLetter(int v)
     {
-        var letterObj = new GameObject();
         string num = v.ToString();
-        SpriteRenderer letterRend = letterObj.AddComponent<SpriteRenderer>();
-        letterRend.sprite = TextScript.GetLetterObj(num[0]);
-        letterRend.color = Color.black;
+        Debug.Log(num);
+        var letterObj1 = new GameObject();
+        SpriteRenderer letterRend1 = letterObj1.AddComponent<SpriteRenderer>();
+        letterRend1.sprite = TextScript.GetLetterObj(num[0]);
+        letterRend1.color = Color.black;
 
-        return letterObj.transform;
+        if (v > 9)
+        {
+            var letterObj2 = new GameObject();
+            SpriteRenderer letterRend2 = letterObj2.AddComponent<SpriteRenderer>();
+            letterRend2.sprite = TextScript.GetLetterObj(num[1]);
+            letterRend2.color = Color.black;
+
+            var fullLeter = new GameObject();
+            letterObj2.transform.SetParent(fullLeter.transform);
+            letterObj2.transform.localPosition += new Vector3(0.1f, 0, 0);
+            letterObj1.transform.SetParent(fullLeter.transform);
+            letterObj1.transform.localPosition -= new Vector3(0.1f, 0, 0);
+
+            return fullLeter.transform;
+        }
+
+        return letterObj1.transform;
     }
     private void SetInfoToHelperButton(LevelScript lev, SolutionScript s, Direction d, int v, int l)
     {
